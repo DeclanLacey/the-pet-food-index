@@ -17,17 +17,17 @@ public class PetFood {
 
     private String name;
 
-    private int kCalPerCup;
+    private int k_cal_per_cup;
 
-    private int kCalPerKg;
+    private int k_cal_per_kg;
 
-    private int kCalPerLb;
+    private int k_cal_per_lb;
 
-    private int crudeProtein;
+    private int crude_protein;
 
-    private int crudeFat;
+    private int crude_fat;
 
-    private int crudeFiber;
+    private int crude_fiber;
 
     private int moisture;
 
@@ -43,7 +43,7 @@ public class PetFood {
 
     private String ingredients;
 
-    private boolean includesGrain;
+    private boolean includes_grain;
 
     @ManyToOne()
     @JoinColumn(name = "pet_type_id", referencedColumnName = "id")
@@ -52,7 +52,5 @@ public class PetFood {
     @ManyToOne()
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     private PetFoodBrand brand;
-
-
 
 }
