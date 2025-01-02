@@ -24,8 +24,8 @@ public class UserService {
 
     public void saveUser(User user) {
         user.setRegistrationDate(new Date(System.currentTimeMillis()));
-        userProfileRepository.save(new UserProfile(user));
         userRepository.save(user);
+        userProfileRepository.save(new UserProfile(user));
     }
 
     public Optional<User> findByEmail(String email) {
