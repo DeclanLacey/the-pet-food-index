@@ -10,14 +10,14 @@ public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userProfileId;
+    private int userAccountId;
 
     @OneToOne
-    @JoinColumn(name = "user_profile_id")
+    @JoinColumn(name = "user_account_id")
     @MapsId
     private User userId;
 
-    @OneToMany(targetEntity = AvoidIngredients.class, cascade = CascadeType.ALL, mappedBy = "UserProfile")
+    @OneToMany(targetEntity = AvoidIngredients.class, cascade = CascadeType.ALL, mappedBy = "userProfile")
     private List<AvoidIngredients> avoidIngredients;
 
     public UserProfile() {
@@ -29,10 +29,18 @@ public class UserProfile {
 
     }
 
-    public UserProfile(int userProfileId, List<AvoidIngredients> avoidIngredients, User userId) {
-        this.userProfileId = userProfileId;
-        this.avoidIngredients = avoidIngredients;
+    public UserProfile(int userAccountId, User userId, List<AvoidIngredients> avoidIngredients) {
+        this.userAccountId = userAccountId;
         this.userId = userId;
+        this.avoidIngredients = avoidIngredients;
+    }
+
+    public int getUserAccountId() {
+        return userAccountId;
+    }
+
+    public void setUserAccountId(int userAccountId) {
+        this.userAccountId = userAccountId;
     }
 
     public List<AvoidIngredients> getAvoidIngredients() {
@@ -43,28 +51,11 @@ public class UserProfile {
         this.avoidIngredients = avoidIngredients;
     }
 
-    public int getUserProfileId() {
-        return userProfileId;
-    }
-
-    public void setUserProfileId(int userProfileId) {
-        this.userProfileId = userProfileId;
-    }
-
     public User getUserId() {
         return userId;
     }
 
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "UserProfile{" +
-                "userProfileId=" + userProfileId +
-                ", userId=" + userId +
-                ", avoidIngredients=" + avoidIngredients +
-                '}';
     }
 }

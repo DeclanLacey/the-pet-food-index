@@ -2,9 +2,12 @@ package com.thepetfoodindex.thepetfoodindex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({"com.thepetfoodindex.thepetfoodindex.mappers"})
 public class ThepetfoodindexApplication {
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(ThepetfoodindexApplication.class, args);
