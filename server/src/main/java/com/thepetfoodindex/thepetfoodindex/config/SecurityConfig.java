@@ -45,15 +45,4 @@ public class SecurityConfig {
     }
 }
 
-//                .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
-//                .and()
-//                .addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
-//                .authorizeHttpRequests((requests) -> {
-//                    requests.requestMatchers(priavateUrl).authenticated().anyRequest().permitAll();
-//                });
-
-
 

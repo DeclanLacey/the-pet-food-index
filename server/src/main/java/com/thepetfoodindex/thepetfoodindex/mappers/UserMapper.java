@@ -4,7 +4,6 @@ import com.thepetfoodindex.thepetfoodindex.dto.SignUpDto;
 import com.thepetfoodindex.thepetfoodindex.dto.UserDto;
 import com.thepetfoodindex.thepetfoodindex.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 

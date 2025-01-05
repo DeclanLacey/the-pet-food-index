@@ -1,7 +1,6 @@
 package com.thepetfoodindex.thepetfoodindex.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

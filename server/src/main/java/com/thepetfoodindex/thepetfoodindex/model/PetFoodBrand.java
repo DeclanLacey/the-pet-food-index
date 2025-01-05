@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "pet_food_brands")
 public class PetFoodBrand {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
