@@ -5,6 +5,7 @@ import com.thepetfoodindex.thepetfoodindex.dto.CredentialsDto;
 import com.thepetfoodindex.thepetfoodindex.dto.SignUpDto;
 import com.thepetfoodindex.thepetfoodindex.dto.UserDto;
 import com.thepetfoodindex.thepetfoodindex.model.User;
+import com.thepetfoodindex.thepetfoodindex.repository.UserProfileRepository;
 import com.thepetfoodindex.thepetfoodindex.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -22,11 +24,13 @@ public class UserController {
 
     private final UserService userService;
     private final UserAuthProvider userAuthProvider;
+    private final UserProfileRepository userProfileRepository;
 
     @Autowired
-    public UserController(UserService userService, UserAuthProvider userAuthProvider) {
+    public UserController(UserService userService, UserAuthProvider userAuthProvider, UserProfileRepository userProfileRepository) {
         this.userService = userService;
         this.userAuthProvider = userAuthProvider;
+        this.userProfileRepository = userProfileRepository;
     }
 
     @PostMapping("/login")

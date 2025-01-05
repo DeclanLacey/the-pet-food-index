@@ -1,9 +1,13 @@
 package com.thepetfoodindex.thepetfoodindex.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 @NoArgsConstructor
 @Builder
@@ -15,13 +19,16 @@ public class UserDto {
     private String lastName;
     private String email;
     private String token;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    private Date registrationDate;
 
-    public UserDto(int id, String firstName, String lastName, String email, String token) {
+    public UserDto(int id, String firstName, String lastName, String email, String token, Date registrationDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.token = token;
+        this.registrationDate = registrationDate;
     }
 
     public int getId() {
@@ -62,5 +69,13 @@ public class UserDto {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }

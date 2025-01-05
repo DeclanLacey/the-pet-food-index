@@ -10,7 +10,6 @@ import com.thepetfoodindex.thepetfoodindex.repository.UserRepository;
 import com.thepetfoodindex.thepetfoodindex.util.AppException;
 import com.thepetfoodindex.thepetfoodindex.dto.UserDto;
 import org.springframework.http.HttpStatus;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +34,7 @@ public class UserService {
 
     public UserDto register(SignUpDto userDto) {
         Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+        Date currentDate = new Date();
 
         if (optionalUser.isPresent()) {
             throw new AppException("User already exists", HttpStatus.BAD_REQUEST);
@@ -42,6 +42,7 @@ public class UserService {
 
         User user = userMapper.signUpToUser(userDto);
         user.setPassword(passwordEncoder.encode(CharBuffer.wrap(userDto.getPassword())));
+        user.setRegistrationDate(currentDate);
         User savedUser = userRepository.save(user);
         userProfileRepository.save(new UserProfile(savedUser));
 
