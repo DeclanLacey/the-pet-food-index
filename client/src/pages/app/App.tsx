@@ -1,4 +1,13 @@
+import { Route, Routes } from 'react-router'
 import './App.css'
+import Home from '../home/Home'
+import Comparison from '../comparison/Comparison'
+import Collections from '../collections/Collections'
+import Catalog from '../catalog/Catalog'
+import UserProfile from '../userProfile/UserProfile'
+import Favorites from '../favorites/Favorites'
+import Login from '../login/Login'
+import Register from '../register/Register'
 
 function App() {
 
@@ -51,9 +60,19 @@ function App() {
 
   return (
     <>
-      <h1>Hello</h1>
+      {/* <h1>Hello</h1>
       <button onClick={login}>Login</button>
-      <button onClick={register}>Register</button>
+      <button onClick={register}>Register</button> */}
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/comparison' element={<Comparison />} />
+        <Route path='/collections' element={<Collections />} />
+        <Route path='/catalog' element={<Catalog />} />
+        <Route path='/user' element={<UserProfile />} />
+        <Route path='/user/favorites' element={<Favorites />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+      </Routes>
     </>
   )
 }
