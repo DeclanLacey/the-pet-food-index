@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+html {
+    -webkit-text-size-adjust: none; /* for iOS Safari */
+    text-size-adjust: none; /* for other mobile browsers */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+            scroll-behavior: smooth;
+    }
+}
+
+body {
+    margin: 0px;
+    background-color: var(--light-tan);
+    font-family: "Roboto Serif", serif;
+}
+
+label,
+button,
+select,
+summary,
+[type=radio],
+[type=submit],
+[type=checkbox] {
+    cursor: pointer;
+}
+
+:root {
+    --salmon: #FE746A;
+    --brown: #DDA063; 
+    --black: #010101; 
+    --teal: #0CD7D1; 
+    --orange: #F6C147; 
+    --light-tan: #fffaed;
+    --tan: #ffedd8;
+    --dark-brown: #a47148
+}
