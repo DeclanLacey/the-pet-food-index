@@ -14,6 +14,7 @@
     padding-left: 20px;
     height: 80px;
     z-index: 100;
+    box-shadow: 1px 1px 10px grey;
 }
 
 .header_user-icon {
