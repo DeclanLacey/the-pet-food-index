@@ -1,0 +1,53 @@
+.home {
+    padding-top: 100px;
+    width: 92%;
+    margin: 0 auto;
+}
+
+.home_title {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: -20px;
+    margin-bottom: 50px;
+}
+
+.home_about-img {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.home_about-content-container {
+    background-color: var(--tan);
+    color: var(--dark-brown);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.home_about-title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home_about-title {
+    margin: 0px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.home_about-line {
+    width: 40px;
+    height: 1.5px;
+    background-color: var(--dark-brown);
+}
+
+.home_about-subtitle {
+    line-height: 28px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.home_about-text {
+    line-height: 22px;
+}
+

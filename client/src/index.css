@@ -38,11 +38,12 @@ summary,
 
 :root {
     --salmon: #FE746A;
-    --brown: #DDA063; 
+    --light-brown: #DDA063; 
     --black: #010101; 
     --teal: #0CD7D1; 
     --orange: #F6C147; 
     --light-tan: #fffaed;
     --tan: #ffedd8;
-    --dark-brown: #a47148
+    --brown: #a47148;
+    --dark-brown: #603808;
 }
