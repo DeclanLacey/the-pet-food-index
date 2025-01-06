@@ -108,6 +108,10 @@
         font-size: .95rem;
     }
 
+    .header_logo {
+        margin-right: 20px;
+    }
+
     .header_nav-hide {
         display: initial;
         animation: none;

@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className='home'>
       {/* <img className='home_floating-img-one' src='./assets/cat-img.jpg' /> */}
-      <img src='./assets/logo-transparent.png' />
+      <img className='home_logo' src='./assets/logo-transparent.png' />
       <h1 className='home_title'>Welcome to<br></br> THE Pet Food Index</h1>
 
       <div className='home_about-container'>

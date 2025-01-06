@@ -11,6 +11,10 @@
     margin-bottom: 50px;
 }
 
+.home_logo {
+    margin: 0 auto;
+}
+
 .home_about-img {
     border-radius: 10px;
     margin-bottom: 20px;
@@ -51,3 +55,8 @@
     line-height: 22px;
 }
 
+@media (min-width: 700px) {
+    .home_logo {
+        max-width: 600px;
+    }
+}
