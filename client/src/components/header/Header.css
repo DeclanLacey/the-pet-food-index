@@ -23,7 +23,7 @@
 }
 
 .header_logo {
-    width: 100px;
+    width: 65px;
 }
 
 .header_nav {
@@ -75,17 +75,10 @@
 
 
 @media (min-width: 700px) {
-    .header {
-        padding-left: 0px;
-    }
     
     .header_user-icon {
         width: 50px;
         margin-left: 15px
-    }
-    
-    .header_logo {
-        width: 100px
     }
     
     .header_nav {
