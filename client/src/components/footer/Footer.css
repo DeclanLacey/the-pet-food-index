@@ -1,0 +1,35 @@
+.footer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50px 200px 20px 50px;
+}
+
+.footer_nav-title {
+    grid-row: 1;
+    grid-column: 1;
+}
+
+.footer_nav {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.footer_logo {
+    grid-row: 1/2;
+    grid-column: 2;
+}
+
+.footer_divider-line {
+    grid-row: 3;
+    grid-column: 1/2;
+}
+
+.footer_year-copyright {
+    grid-row: 4;
+    grid-column: 1;
+}
+
+.footer_logo-link {
+    grid-row: 4;
+    grid-column: 2;
+}

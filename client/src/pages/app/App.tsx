@@ -9,6 +9,7 @@ import Favorites from '../favorites/Favorites'
 import Login from '../login/Login'
 import Register from '../register/Register'
 import Header from '../../components/header/Header'
+import Footer from '../../components/footer/Footer'
 
 function App() {
 
@@ -62,6 +63,7 @@ function App() {
   return (
     <>
       <Header />
+      
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/comparison' element={<Comparison />} />
@@ -72,6 +74,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
+
+      <Footer />
     </>
   )
 }

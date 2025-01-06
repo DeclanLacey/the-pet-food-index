@@ -2,15 +2,10 @@ import { NavLink } from 'react-router'
 import { useState } from 'react'
 import "./BurgerMenu.css"
 import "./Header.css"
+import { setActiveStyling } from '../../util/utils'
 
 export function closeBurgerMenu(setBurgerMenuOpen: Function) {
   setBurgerMenuOpen(false)
-}
-
-export function setActiveStyling(active : {isActive: boolean, isPending: boolean, isTransitioning: boolean}) {
-  if (active.isActive) {
-    return {textDecoration: "underline"}
-  }
 }
 
 export function handleBurgerMenuClick(burgerMenuOpen : boolean, setBurgerMenuOpen: Function, setHasInteracted: Function) {
