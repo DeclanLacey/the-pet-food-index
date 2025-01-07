@@ -40,6 +40,7 @@
     padding-top: 30px;
     padding-bottom: 30px;
     display: none;
+    box-shadow: 1px 1px 10px grey;
 }
 
 .header_nav-desktop {
