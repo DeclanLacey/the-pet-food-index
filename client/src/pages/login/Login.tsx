@@ -13,13 +13,13 @@ export default function Login() {
 
       <form className="login_form">
         <div className="login_form-input-container">
-          <label className="login_form-input-label">E-mail</label>
-          <input className="login_form-input"/>
+          <label className="login_form-input-label" htmlFor="email">E-mail</label>
+          <input className="login_form-input" name="email" id="email" autoComplete="email"/>
         </div>
 
         <div className="login_form-input-container">
-          <label className="login_form-input-label">Password</label>
-          <input className="login_form-input"/>
+          <label className="login_form-input-label" htmlFor="password">Password</label>
+          <input className="login_form-input" name="password" id="password" autoComplete="current-password"/>
         </div>
 
         <input className="login_form-submit-btn" type="submit" value={"Sign In"} onSubmit={handleLogin}/>
