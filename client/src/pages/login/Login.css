@@ -2,17 +2,10 @@
     margin: 0 auto;
     width: 92%;
     text-align: center;
-    /* padding-top: 50px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-top: 50px;
-    /* position: absolute; */
-    /* left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 200px;
-    margin-bottom: 100px; */
 }
 
 .login_title {
@@ -55,6 +48,7 @@
     height: 40px;
     border-radius: 10px;
     border: 1px solid var(--dark-brown);
+    padding-left: 10px;
 }
 
 .login_form-submit-btn {
