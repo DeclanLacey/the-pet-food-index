@@ -1,10 +1,36 @@
 import { NavLink } from 'react-router'
 import "./Register.css"
 import { ChangeEvent, FormEvent, useState } from 'react'
+import { NewUser } from '../../types/Types'
+import { registerNewUser } from '../../util/serverCalls'
+import { storeToken } from '../../util/utils'
 
-export function handleRegister(event: FormEvent<HTMLInputElement>) {
+export async function handleRegister(event: FormEvent<HTMLFormElement>, firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
   event.preventDefault()
+  if (!verifyPasswordsMatch(password, confirmPassword)) {
+    window.alert("Passwords do not match")
+  }else {
+    const newUser : NewUser = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password
+    }
 
+    try {
+      const response = await registerNewUser(newUser)
+      if (await response.token) {
+        storeToken(response.token)
+      }
+    }catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+export function verifyPasswordsMatch(passwordOne : string, passwordTwo : string) {
+  if (passwordOne === passwordTwo) return true
+  return false
 }
 
 export function handleFormChange(event : ChangeEvent<HTMLInputElement>, setFunction: Function) {
@@ -25,7 +51,7 @@ export default function Register() {
       <h1 className="register_title">Sign up for free</h1>
       <p className="register_subtitle">Already have an account? <NavLink className="register_subtitle-link" to="/login">Sign in</NavLink>.</p>
 
-      <form className="register_form">
+      <form className="register_form" onSubmit={(event) => {handleRegister(event, firstName, lastName, email, password, confirmPassword)}}>
         <div className="register_form-input-container">
           <label className="register_form-input-label" htmlFor="first-name">First Name</label>
           <input 
@@ -80,6 +106,7 @@ export default function Register() {
             value={password} 
             required
             onChange={(event) => {handleFormChange(event, setPassword)}}
+            maxLength={22}
           />
         </div>
 
@@ -94,10 +121,11 @@ export default function Register() {
             value={confirmPassword} 
             required
             onChange={(event) => {handleFormChange(event, setConfirmPassword)}}
+            maxLength={22}
           />
         </div>
 
-        <input className="register_form-submit-btn" type="submit" value={"Create Account"} onSubmit={(event) => {handleRegister(event)}}/>
+        <input className="register_form-submit-btn" type="submit" value={"Create Account"}/>
       </form>
     </div>
     </div>
