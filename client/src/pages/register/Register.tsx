@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router'
+import { NavigateFunction, NavLink, useNavigate } from 'react-router'
 import "./Register.css"
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { NewUser } from '../../types/Types'
 import { registerNewUser } from '../../util/serverCalls'
 import { storeToken } from '../../util/utils'
 
-export async function handleRegister(event: FormEvent<HTMLFormElement>, firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
+export async function handleRegister(event: FormEvent<HTMLFormElement>, firstName: string, lastName: string, email: string, password: string, confirmPassword: string, navigate: NavigateFunction) {
   event.preventDefault()
   if (!verifyPasswordsMatch(password, confirmPassword)) {
     window.alert("Passwords do not match")
@@ -21,6 +21,7 @@ export async function handleRegister(event: FormEvent<HTMLFormElement>, firstNam
       const response = await registerNewUser(newUser)
       if (await response.token) {
         storeToken(response.token)
+        navigate("/user")
       }
     }catch (error) {
       console.error(error);
@@ -44,6 +45,8 @@ export default function Register() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [confirmPassword, setConfirmPassword] = useState<string>("")
+  const navigate = useNavigate();
+
 
   return (
     <div>
@@ -51,7 +54,7 @@ export default function Register() {
       <h1 className="register_title">Sign up for free</h1>
       <p className="register_subtitle">Already have an account? <NavLink className="register_subtitle-link" to="/login">Sign in</NavLink>.</p>
 
-      <form className="register_form" onSubmit={(event) => {handleRegister(event, firstName, lastName, email, password, confirmPassword)}}>
+      <form className="register_form" onSubmit={(event) => {handleRegister(event, firstName, lastName, email, password, confirmPassword, navigate)}}>
         <div className="register_form-input-container">
           <label className="register_form-input-label" htmlFor="first-name">First Name</label>
           <input 

@@ -1,6 +1,8 @@
+import { clearToken } from "../../util/utils"
 import "./Home.css"
 
 export default function Home() {
+  // clearToken()
   return (
     <div className='home'>
       {/* <img className='home_floating-img-one' src='./assets/cat-img.jpg' /> */}

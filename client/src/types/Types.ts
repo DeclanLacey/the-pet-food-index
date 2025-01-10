@@ -4,3 +4,8 @@ export type NewUser = {
     email: string,
     password: string
 }
+
+export type CurrentUser = {
+    email: string,
+    password: string
+}

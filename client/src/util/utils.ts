@@ -12,6 +12,10 @@ export function getToken() {
   return localStorage.getItem('token')
 }
 
+export function clearToken() {
+  localStorage.removeItem('token')
+}
+
 export function checkIfEmailValid(email: string) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return pattern.test(email);
