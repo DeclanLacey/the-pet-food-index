@@ -5,7 +5,6 @@ export default function Home() {
   // clearToken()
   return (
     <div className='home'>
-      {/* <img className='home_floating-img-one' src='./assets/cat-img.jpg' /> */}
       <img className='home_logo' src='./assets/logo-transparent.png' />
       <h1 className='home_title'>Welcome to<br></br> THE Pet Food Index</h1>
 
