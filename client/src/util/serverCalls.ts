@@ -14,7 +14,7 @@ export async function registerNewUser(newUser: NewUser) {
 
         return await response.json()
     }catch (error) {
-        return error
+      throw new Error(`${error}`)
     }
 }
 
@@ -32,6 +32,24 @@ export async function loginCurrentUser(currentUser: CurrentUser) {
 
       return await response.json()
     }catch (error) {
-      return error
+      throw new Error(`${error}`)
     }
+}
+
+export async function getUserData(token: string) {
+  try {
+    const response = await fetch("http://localhost:8080/user/profile", {
+      headers: {'content-type': 'application/json', 'Authorization': `Bearer ${token}`},
+      method: "GET"
+    })
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`)
+    }
+
+    return await response.json()
+  }catch (error) {
+    throw new Error(`${error}`)
   }
+
+}
