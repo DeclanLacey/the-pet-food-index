@@ -14,7 +14,7 @@ export async function registerNewUser(newUser: NewUser) {
 
         return await response.json()
     }catch (error) {
-        console.error(error);
+        return error
     }
 }
 
@@ -32,6 +32,6 @@ export async function loginCurrentUser(currentUser: CurrentUser) {
 
       return await response.json()
     }catch (error) {
-      console.error(error);
+      return error
     }
   }
