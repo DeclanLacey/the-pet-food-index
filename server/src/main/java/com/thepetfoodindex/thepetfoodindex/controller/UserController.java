@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -40,5 +41,11 @@ public class UserController {
         UserDto user = userService.register(signUpDto);
         user.setToken(userAuthProvider.createToken(user.getEmail()));
         return ResponseEntity.created(URI.create("/users/" + user.getId())).body(user);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserDto> getProfile(Authentication authentication) {
+        UserDto user = (UserDto) authentication.getPrincipal();
+        return ResponseEntity.ok(user);
     }
 }
