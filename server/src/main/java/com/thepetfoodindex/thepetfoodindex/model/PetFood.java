@@ -26,26 +26,26 @@ public class PetFood {
     private int k_cal_per_lb;
 
     @NotEmpty
-    private int crude_protein;
+    private float crude_protein;
 
     @NotEmpty
-    private int crude_fat;
+    private float crude_fat;
 
     @NotEmpty
-    private int crude_fiber;
+    private float crude_fiber;
 
     @NotEmpty
-    private int moisture;
+    private float moisture;
 
-    private int ash;
+    private float ash;
 
-    private int calcium;
+    private float calcium;
 
-    private int sodium;
+    private float sodium;
 
-    private int phosphorus;
+    private float phosphorus;
 
-    private int potassium;
+    private float potassium;
 
     @NotEmpty
     private String ingredients;
