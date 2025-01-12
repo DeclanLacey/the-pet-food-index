@@ -2,7 +2,6 @@ import { NavigateFunction, NavLink, useNavigate } from "react-router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { loginCurrentUser } from "../../util/serverCalls";
 import { CurrentUser } from "../../types/Types";
-import { storeToken } from "../../util/utils";
 import "./Login.css"
 
 async function handleLogin(event: FormEvent<HTMLFormElement>, email: string, password: string, navigate: NavigateFunction ) {
@@ -15,7 +14,7 @@ async function handleLogin(event: FormEvent<HTMLFormElement>, email: string, pas
   try {
     const response = await loginCurrentUser(currentUser)
     if (await response.token) {
-      storeToken(response.token)
+      // storeToken(response.token)
       navigate("/user");
     }
   }catch (error) {

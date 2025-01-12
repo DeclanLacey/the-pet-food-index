@@ -25,7 +25,7 @@ describe('registerNewUser()', () => {
         );
     })
 
-    it("should un-successfully register a new user and return an error", async () => {
+    it("should un-successfully register a new user and throw an error", async () => {
         vi.stubGlobal('fetch', vi.fn(() =>
             Promise.resolve({
                 ok: false,
@@ -34,9 +34,9 @@ describe('registerNewUser()', () => {
         ));
 
         const newUser = { firstName: "Name", lastName: "Name", email: "test@test.com", password: "test"};
-        const result = await registerNewUser(newUser)
+        expect.assertions(1);
 
-        expect(result).toEqual(new Error('Response status: 400'));
+        await expect(registerNewUser(newUser)).rejects.toThrowError();
     })
 })
 
@@ -50,21 +50,21 @@ describe('loginCurrentUser()', () => {
             })
         ));
 
-        const newUser = {email: "test@test.com", password: "test"};
-        const result = await loginCurrentUser(newUser)
+        const userLogin = {email: "test@test.com", password: "test"};
+        const result = await loginCurrentUser(userLogin)
 
         expect(result).toEqual(mockResponse)
         expect(global.fetch).toHaveBeenCalledWith(
             'http://localhost:8080/user/login',
             {
                 headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(newUser),
+                body: JSON.stringify(userLogin),
                 method: 'POST',
             }
         );
     })
 
-    it("should un-successfully login a user and return an error", async () => {
+    it("should un-successfully login a user and throw an error", async () => {
         vi.stubGlobal('fetch', vi.fn(() =>
             Promise.resolve({
                 ok: false,
@@ -72,9 +72,9 @@ describe('loginCurrentUser()', () => {
             })
         ));
 
-        const newUser = {email: "test@test.com", password: "test"};
-        const result = await loginCurrentUser(newUser)
+        const userLogin = {email: "test@test.com", password: "test"};
+        expect.assertions(1);
 
-        expect(result).toEqual(new Error('Response status: 400'));
+        await expect(loginCurrentUser(userLogin)).rejects.toThrowError();
     })
 })

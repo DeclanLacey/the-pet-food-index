@@ -3,7 +3,7 @@ import "./Register.css"
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { NewUser } from '../../types/Types'
 import { registerNewUser } from '../../util/serverCalls'
-import { storeToken } from '../../util/utils'
+import { storeAccessToken, storeRefreshToken } from '../../util/utils'
 
 export async function handleRegister(event: FormEvent<HTMLFormElement>, firstName: string, lastName: string, email: string, password: string, confirmPassword: string, navigate: NavigateFunction) {
   event.preventDefault()
@@ -19,8 +19,10 @@ export async function handleRegister(event: FormEvent<HTMLFormElement>, firstNam
 
     try {
       const response = await registerNewUser(newUser)
-      if (await response.token) {
-        storeToken(response.token)
+      if(response.accessToken && response.refreshToken) {
+        storeAccessToken(response.accessToken)
+        storeRefreshToken(response.refreshToken)
+
         navigate("/user")
       }
     }catch (error) {

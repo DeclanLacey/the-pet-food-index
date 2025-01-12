@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { checkIfEmailValid, clearToken, getToken, setActiveStyling, storeToken } from "./utils";
+import { checkIfEmailValid, clearToken, getAccessToken, setActiveStyling, storeAccessToken } from "./utils";
 
 describe("setActiveStyling()", () => {
     it("should return an object with the a key of isActive and a value of true", () => {
@@ -35,18 +35,18 @@ describe('local storage functions', () => {
         clear: vi.fn(),
     });
 
-    describe('storeToken()', () => {
-        it("should call localStorage.setItem with the same token that is passed in and the key of 'token' ", () => {
+    describe('storeAccessToken()', () => {
+        it("should call localStorage.setItem with the same token that is passed in and the key of 'accessToken' ", () => {
             const token = "test"
-            storeToken(token)
-            expect(localStorage.setItem).toHaveBeenCalledWith('token', token)
+            storeAccessToken(token)
+            expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', token)
         })
     })
 
-    describe('getToken()', () => {
-        it("should call localStorage.getItem with the key name of 'token' ", () => {
-            const keyName = 'token'
-            getToken()
+    describe('getAccessToken()', () => {
+        it("should call localStorage.getItem with the key name of 'accessToken' ", () => {
+            const keyName = 'accessToken'
+            getAccessToken()
             expect(localStorage.getItem).toHaveBeenCalledWith(keyName)
         })
     })

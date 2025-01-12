@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-import { getToken } from "../../util/utils";
-import { useNavigate } from "react-router";
+import { NavigateFunction, useNavigate } from "react-router";
 import { getUserData } from "../../util/serverCalls";
 import { UserData } from "../../types/Types";
+import { checkAndRefreshTokens, getAccessToken, isTokenExpired } from "../../util/utils";
 
-export async function getData(setLoading: Function, setUserData: Function, getToken: Function, getUserData: Function) {
+export async function getData(setLoading: Function, setUserData: Function, getAccessToken: Function, getUserData: Function, navigate: NavigateFunction) {
   try {
     setLoading(true)
-    const userData = await getUserData(getToken())
+    if (!checkAndRefreshTokens()) {
+      navigate("/login")
+    }
 
+    const userData = await getUserData(getAccessToken())
     setUserData(userData)
     setLoading(false)
   }catch (error) {
     setLoading(false)
-    console.log(error)
+     throw new Error(`${error}`)
   }
 }
 
@@ -23,11 +26,10 @@ export default function UserProfile() {
   const [loading, setLoading] = useState<boolean>()
 
   useEffect(() => {
-    if (!getToken()) {
-      // Redirect to login if no token is found
-      navigate("/login");
+    if (!isTokenExpired(getAccessToken())) {
+      navigate("/login")
     }else {
-      getData(setLoading, setUserData, getToken, getUserData)
+      getData(setLoading, setUserData, getAccessToken, getUserData, navigate)
     }
   }, [navigate]);
 
