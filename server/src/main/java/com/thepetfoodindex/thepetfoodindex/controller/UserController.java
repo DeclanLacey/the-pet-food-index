@@ -1,5 +1,6 @@
 package com.thepetfoodindex.thepetfoodindex.controller;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.thepetfoodindex.thepetfoodindex.config.UserAuthProvider;
 import com.thepetfoodindex.thepetfoodindex.dto.CredentialsDto;
 import com.thepetfoodindex.thepetfoodindex.dto.SignUpDto;
@@ -13,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -29,18 +32,69 @@ public class UserController {
         this.userAuthProvider = userAuthProvider;
     }
 
+//    @PostMapping("/login")
+//    public ResponseEntity<UserDto> login(@Valid @RequestBody CredentialsDto credentialsDto) {
+//        UserDto user = userService.login(credentialsDto);
+//        user.setAccessToken(userAuthProvider.createTokens(user.getEmail()));
+//        user.setRefreshToken(userAuthProvider.createTokens(user.getEmail()));
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
+
+//    @PostMapping("/register")
+//    public ResponseEntity<UserDto> register(@Valid @RequestBody SignUpDto signUpDto) {
+//        UserDto user = userService.register(signUpDto);
+//        user.setToken(userAuthProvider.createTokens(user.getEmail()));
+//        user.setAccessToken(userAuthProvider.createTokens(user.getEmail()));
+//        user.setRefreshToken(userAuthProvider.createTokens(user.getEmail()));
+//        return ResponseEntity.created(URI.create("/users/" + user.getId())).body(user);
+//    }
+
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@Valid @RequestBody CredentialsDto credentialsDto) {
+    public ResponseEntity<Map<String, Object>> login(@Valid @RequestBody CredentialsDto credentialsDto) {
         UserDto user = userService.login(credentialsDto);
-        user.setToken(userAuthProvider.createToken(user.getEmail()));
-        return new ResponseEntity<>(user, HttpStatus.OK);
+
+        // Generate access and refresh tokens
+        Map<String, String> tokens = userAuthProvider.createTokens(user.getEmail());
+
+        // Prepare response
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", user);
+        response.put("accessToken", tokens.get("accessToken"));
+        response.put("refreshToken", tokens.get("refreshToken"));
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@Valid @RequestBody SignUpDto signUpDto) {
+    public ResponseEntity<Map<String, Object>> register(@Valid @RequestBody SignUpDto signUpDto) {
         UserDto user = userService.register(signUpDto);
-        user.setToken(userAuthProvider.createToken(user.getEmail()));
-        return ResponseEntity.created(URI.create("/users/" + user.getId())).body(user);
+
+        // Generate access and refresh tokens
+        Map<String, String> tokens = userAuthProvider.createTokens(user.getEmail());
+
+        // Prepare response
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", user);
+        response.put("accessToken", tokens.get("accessToken"));
+        response.put("refreshToken", tokens.get("refreshToken"));
+
+        return ResponseEntity.created(URI.create("/users/" + user.getId())).body(response);
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<Map<String, String>> refreshToken(@RequestParam String refreshToken) {
+        try {
+            Authentication authentication = userAuthProvider.validateToken(refreshToken);
+            String login = authentication.getName();
+
+            // Validate refresh token, then generate a new access token
+            Map<String, String> newTokens = userAuthProvider.createTokens(login);
+
+            return ResponseEntity.ok(newTokens);
+        } catch (JWTVerificationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/profile")

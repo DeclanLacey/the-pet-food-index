@@ -12,9 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 
 @Component
@@ -33,14 +31,24 @@ public class UserAuthProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String login) {
+    public String createToken(String login, long validityInMilliseconds) {
         Date now = new Date();
-        Date validity = new Date(now.getTime() + 3_600_000);
+        Date validity = new Date(now.getTime() + validityInMilliseconds);
         return JWT.create()
                 .withIssuer(login)
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .sign(Algorithm.HMAC256(secretKey));
+    }
+
+    public Map<String, String> createTokens(String login) {
+        String accessToken = createToken(login, 3_600_000);  // 1 hour validity
+        String refreshToken = createToken(login, 7 * 24 * 60 * 60 * 1000L);  // 1 week validity
+
+        Map<String, String> tokens = new HashMap<>();
+        tokens.put("accessToken", accessToken);
+        tokens.put("refreshToken", refreshToken);
+        return tokens;
     }
 
     public Authentication validateToken(String token) {
