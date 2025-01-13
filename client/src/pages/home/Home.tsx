@@ -1,8 +1,8 @@
-import { clearToken } from "../../util/utils"
+import { clearTokens } from "../../util/utils"
 import "./Home.css"
 
 export default function Home() {
-  // clearToken()
+  // clearTokens()
   return (
     <div className='home'>
       <img className='home_logo' src='./assets/logo-transparent.png' />

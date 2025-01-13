@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { loginCurrentUser } from "../../util/serverCalls";
 import { CurrentUser } from "../../types/Types";
 import "./Login.css"
+import { getAccessToken, storeAccessToken, storeRefreshToken } from "../../util/utils";
 
 async function handleLogin(event: FormEvent<HTMLFormElement>, email: string, password: string, navigate: NavigateFunction ) {
   event.preventDefault()
@@ -13,8 +14,10 @@ async function handleLogin(event: FormEvent<HTMLFormElement>, email: string, pas
 
   try {
     const response = await loginCurrentUser(currentUser)
-    if (await response.token) {
-      // storeToken(response.token)
+    
+    if (response.accessToken) {
+      storeAccessToken(response.accessToken)
+      storeRefreshToken(response.refreshToken)
       navigate("/user");
     }
   }catch (error) {

@@ -24,8 +24,9 @@ export function getRefreshToken() {
   return localStorage.getItem('refreshToken')
 }
 
-export function clearToken() {
-  localStorage.removeItem('token')
+export function clearTokens() {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
 }
 
 export function checkIfEmailValid(email: string) {
@@ -37,23 +38,22 @@ export function isTokenExpired(token : string | null) {
   if (!token) return true;  // No token means expired or invalid
   const decoded = jwtDecode(token);
 
-  const currentTime = Date.now();
+  const currentTime = (Date.now() / 1000);
   const expirationDate = decoded.exp!
   const isExpired = expirationDate < currentTime;
   return isExpired
 }
 
 export async function checkAndRefreshTokens() {
-  if (isTokenExpired(getRefreshToken())) {
-    return false
-  }else if (isTokenExpired(getAccessToken())) {
+  if (isTokenExpired(getAccessToken())) {
     try {
-      const response = await getNewTokens(getRefreshToken())
-      if (response) {
+      const refreshToken = getRefreshToken()
+      const response = await getNewTokens(refreshToken)
+      console.log(response)
+      if (response.accessToken && response.refreshToken) {
         storeAccessToken(response.accessToken)
         storeRefreshToken(response.refreshToken)
       }
-      return true
     }catch (error) {
       throw new Error(`${error}`)
     }

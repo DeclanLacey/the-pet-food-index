@@ -1,6 +1,7 @@
 package com.thepetfoodindex.thepetfoodindex.controller;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.thepetfoodindex.thepetfoodindex.config.UserAuthProvider;
 import com.thepetfoodindex.thepetfoodindex.dto.CredentialsDto;
 import com.thepetfoodindex.thepetfoodindex.dto.SignUpDto;
@@ -81,14 +82,56 @@ public class UserController {
 
         return ResponseEntity.created(URI.create("/users/" + user.getId())).body(response);
     }
+//
+//    @PostMapping("/refresh-token")
+//    public ResponseEntity<Map<String, String>> refreshToken(@RequestParam String refreshToken) {
+//        try {
+//            Authentication authentication = userAuthProvider.validateToken(refreshToken);
+//            String login = authentication.getName();
+//
+//            // Validate refresh token, then generate a new access token
+//            Map<String, String> newTokens = userAuthProvider.createTokens(login);
+//
+//            return ResponseEntity.ok(newTokens);
+//        } catch (JWTVerificationException e) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//    }
 
+//    @PostMapping("/refresh-token")
+//    public ResponseEntity<Map<String, String>> refreshToken(@RequestHeader("Authorization") String authorizationHeader) {
+//        try {
+//            // Extract the token from the Authorization header (e.g., "Bearer <token>")
+//            String token = authorizationHeader.replace("Bearer ", "");
+//
+//            // Validate the token and get the authentication
+//            Authentication authentication = userAuthProvider.validateToken(token);
+//            String login = authentication.getName();  // Extract the login (e.g., email)
+//
+//            // Validate refresh token, then generate a new access token
+//            Map<String, String> newTokens = userAuthProvider.createTokens(login);
+//
+//            return ResponseEntity.ok(newTokens);
+//        } catch (JWTVerificationException e) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//    }
+
+
+    /// This might work??
     @PostMapping("/refresh-token")
-    public ResponseEntity<Map<String, String>> refreshToken(@RequestParam String refreshToken) {
+    public ResponseEntity<Map<String, String>> refreshToken(@RequestHeader("Authorization") String authorizationHeader) {
         try {
-            Authentication authentication = userAuthProvider.validateToken(refreshToken);
-            String login = authentication.getName();
+            // Extract the token from the Authorization header (e.g., "Bearer <token>")
+            String token = authorizationHeader.replace("Bearer ", "");
 
-            // Validate refresh token, then generate a new access token
+            // Validate the refresh token
+            DecodedJWT decoded = userAuthProvider.validateRefreshToken(token);
+
+            // Extract the user information (e.g., email) from the refresh token
+            String login = decoded.getIssuer();  // Typically, the issuer is the user email or unique ID
+
+            // Generate new access and refresh tokens (if necessary)
             Map<String, String> newTokens = userAuthProvider.createTokens(login);
 
             return ResponseEntity.ok(newTokens);

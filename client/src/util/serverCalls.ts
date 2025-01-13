@@ -1,7 +1,7 @@
 import { CurrentUser, NewUser } from "../types/Types";
+import { getRefreshToken, isTokenExpired } from "./utils";
 
 export async function registerNewUser(newUser: NewUser) {
-
     try {
         const response = await fetch("http://localhost:8080/user/register", {
             headers: {'content-type': 'application/json'},
@@ -56,16 +56,16 @@ export async function getUserData(token: string) {
 
 export async function getNewTokens(token: string | null) {
   try {
-    const response = await fetch("http://localhost:8080/user/refresh-token", {
+    const response = await fetch(`http://localhost:8080/user/refresh-token`, {
       headers: {'content-type': 'application/json', 'Authorization': `Bearer ${token}`},
-      method: "GET"
+      method: "POST"
     })
 
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`)
     }
 
-    return await response.json()
+    return response.json()
   }catch (error) {
     throw new Error(`${error}`)
   }
