@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
 import Home from '../home/Home'
-import Comparison from '../comparison/Comparison'
+import {Comparison} from '../comparison/Comparison'
 import Collections from '../collections/Collections'
 import Catalog from '../catalog/Catalog'
 import UserProfile from '../userProfile/UserProfile'

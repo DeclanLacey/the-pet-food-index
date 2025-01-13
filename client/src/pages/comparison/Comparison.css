@@ -1,0 +1,65 @@
+.comparison {
+    width: 92%;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.comparison_title {
+    text-align: center;
+    color: var(--dark-brown);
+}
+
+.comparison_subtitle {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.comparison_form {
+    background-color: var(--brown);
+    color: var(--tan);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.comparison_form-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.comparison_form-input-label {
+    margin-bottom: 5px;
+}
+
+.comparison_form-select-input {
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
+    background-color: var(--tan);
+    color: var(--dark-brown);
+    font-size: .9rem;
+    margin-bottom: 10px;
+}
+
+.comparison_form-submit-btn {
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--dark-brown);
+    color: var(--tan);
+    border: none;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.comparison_form-submit-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
