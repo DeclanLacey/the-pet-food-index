@@ -14,8 +14,8 @@ export async function getData(setLoading: Function, setUserData: Function, getAc
     }
 
     checkAndRefreshTokens()
-    const userData = await getUserData(getAccessToken())
-    setUserData(userData)
+    const data = await getUserData(getAccessToken())
+    setUserData(data)
     setLoading(false)
   }catch (error) {
     setLoading(false)

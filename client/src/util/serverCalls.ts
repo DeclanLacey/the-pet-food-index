@@ -70,3 +70,20 @@ export async function getNewTokens(token: string | null) {
     throw new Error(`${error}`)
   }
 }
+
+export async function getAllPetTypes() {
+  try {
+    const response = await fetch(`http://localhost:8080/pets/pet-types`, {
+      headers: {'content-type': 'application/json'},
+      method: "GET"
+    })
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`)
+    }
+
+    return response.json()
+  }catch (error) {
+    throw new Error(`${error}`)
+  }
+}

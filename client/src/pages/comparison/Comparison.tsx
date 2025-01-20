@@ -1,7 +1,12 @@
+import { useEffect, useState } from "react"
+import { getAllPetTypes } from "../../util/serverCalls"
 import "./Comparison.css"
+import { PetType } from "../../types/Types"
 
-export function renderPetTypeOptions() {
-
+export function renderPetTypeOptions(petTypes: PetType[]) {
+  const petTypeOptions = petTypes.map((type) => {
+    return <option className="comparison_option" value={type.id}> {type.name}</option>
+  })
 }
 
 export function renderBrandOptions() {
@@ -12,10 +17,31 @@ export function renderFoodOptions() {
 
 }
 
-
+export async function getData(setPetTypes: Function, setLoading: Function, getAllPetTypes: Function) {
+  try {
+      setLoading(true)
+      const data = await getAllPetTypes()
+      setPetTypes(data)
+      setLoading(false)
+    }catch (error) {
+      setLoading(false)
+      throw new Error(`${error}`)
+    }
+}
 
 export function Comparison() {
 
+  const [petTypes, setPetTypes] = useState<PetType[]>()
+  const [loading, setLoading] = useState<boolean>()
+
+  useEffect(() => {
+    getData(setPetTypes, setLoading, getAllPetTypes)
+  }, [])
+
+  if (loading) return <></>
+  if (!petTypes) return <></>
+
+  console.log(petTypes)
 
   return (
     <div className='comparison'>

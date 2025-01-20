@@ -18,3 +18,8 @@ export type UserData = {
     registrationDate: string,
     token: string | null
 }
+
+export type PetType = {
+    id: number,
+    name: string
+}
